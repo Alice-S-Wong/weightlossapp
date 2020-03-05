@@ -6,7 +6,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'username'
+            'id',
+            'username',
         )
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -24,14 +25,14 @@ class AnswerSerializer(serializers.ModelSerializer):
         )
 
 class QuestionSerializer(serializers.ModelSerializer):
-    # user = UserSerializer(many=False)  
+    user_set = UserSerializer(many=False, read_only=True)  
     answers = AnswerSerializer(source='answer_set', many=True, required=False)
 
     class Meta:
         model = Question
         fields = (
             'id',
-            # 'user',
+            'user_set',
             'question_title',
             'question_text',
             'pub_date',
