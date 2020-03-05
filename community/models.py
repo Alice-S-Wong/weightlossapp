@@ -11,6 +11,8 @@ class Question(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    def __str__(self):
+        return self.question_title
 
 class Answer(models.Model):
     answer_title = models.CharField(max_length=255)
@@ -21,6 +23,8 @@ class Answer(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    def __str__(self):
+        return self.answer_title
 
 class QuestionBookmark(models.Model):
     question_id = models.ForeignKey(Question, on_delete=models.CASCADE)

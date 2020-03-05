@@ -3,10 +3,10 @@ from django.contrib import admin
 # Register your models here.
 from .models import Question
 from .models import Answer
-from .models import BookmarkQuestion
-from .models import BookmarkAnswer
+from .models import QuestionBookmark
+from .models import AnswerBookmark
 
 admin.site.register(Question)
 admin.site.register(Answer)
-admin.site.register(BookmarkQuestion)
-admin.site.register(BookmarkAnswer)
+admin.site.register(QuestionBookmark)
+admin.site.register(AnswerBookmark)
