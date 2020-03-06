@@ -25,7 +25,7 @@ class AnswerSerializer(serializers.ModelSerializer):
         )
 
 class QuestionSerializer(serializers.ModelSerializer):
-    user_set = UserSerializer(many=False, read_only=True)  
+    user_set = UserSerializer(many=False)  
     answers = AnswerSerializer(source='answer_set', many=True, required=False)
 
     class Meta:
@@ -38,6 +38,13 @@ class QuestionSerializer(serializers.ModelSerializer):
             'pub_date',
             'answers'
         )
+    
+    def create(self, validated_data):
+        users = validated_data.pop('choices')
+        question = Question.objects.create(**validated_data)
+        for user in users:
+            User.objects.create(**user, question=question)
+        return question
         
 class QuestionBookmarkSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False)  
